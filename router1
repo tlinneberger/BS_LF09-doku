@@ -1,0 +1,22 @@
+/interface bridge
+add name=bridge1
+add name=bridge2
+/routing ospf area
+add area-id=1.1.1.1 name=Area1
+/routing ospf instance
+set [ find default=yes ] router-id=1.1.1.1
+/interface bridge port
+add bridge=bridge1 interface=ether2
+add bridge=bridge1 interface=ether3
+add bridge=bridge1 interface=ether4
+add bridge=bridge2 interface=ether5
+add bridge=bridge2 interface=ether6
+add bridge=bridge2 interface=ether7
+add bridge=bridge2 interface=ether8
+/ip address
+add address=10.0.10.1/24 interface=bridge1 network=10.0.10.0
+add address=10.0.13.2/24 interface=bridge2 network=10.0.13.0
+/routing ospf network
+add area=Area1 network=10.0.10.0/24
+add area=Area1 network=10.0.13.0/24
+

@@ -89,34 +89,64 @@ add area=Area1 network=10.0.13.0/24
 # um das zu überprüfen einfach folgenden Command laufen lassen
 /routing ospf neighbor print
 
+# Hinzufügen der IP-Adresse für das Klassennetz
+/ip address 
+add interface=ether9 address=50.0.0.1/24
+
+# Änderung der Router-ID, sodass diese einmalig ist
+/routing ospf instance
+set [ find default=yes ] router-id=255.1.1.1
+
+# Aggregation des lokalen Netzes
+/routing ospf area range
+add area=backbone range=10.0.8.0/21
+
+# Hinzufügen der Backbone-Area
+/routing ospf network
+add area=backbone network=50.0.0.0/24
+
+# Ausgabe der verbundenen Router
+/routing ospf neighbor print
+
 ```
 
 Konfiguration eines Client Copmuters (PC01 bis PC04):
 
 ```BASH
 #PC01
-sudo ipadd flush lab2
+sudo ip add flush lab2
 sudo ifconfig lab2 10.0.10.100/24
 sudo route add default gw 10.0.10.1 lab2
 ```
 
 ```BASH
 #PC02
-sudo ipadd flush lab2
+sudo ip add flush lab2
 sudo ifconfig lab2 10.0.11.100/24
 sudo route add default gw 10.0.11.1 lab2
 ```
 
 ```BASH
 #PC03
-sudo ipadd flush lab2
+sudo ip add flush lab2
 sudo ifconfig lab2 10.0.12.100/24
 sudo route add default gw 10.0.12.1 lab2
 ```
 
 ```BASH
 #PC04
-sudo ipadd flush lab2
+sudo ip add flush lab2
 sudo ifconfig lab2 10.0.13.10/24
 sudo route add default gw 10.0.13.1 lab2
 ```
+
+## Probleme bei der Konfiguration
+Beim konfigurieren der Backbone-Area des Routers 1 kam es zu einem Problem mit der Verbindung zu einem anderen Router.
+```BASH
+ 1 instance=default router-id=1.1.1.1 address=50.0.0.4 interface=ether9 priority=1 dr-address=50.0.0.2 
+   backup-dr-address=50.0.0.4 state="2-Way" state-changes=92 ls-retransmits=0 ls-requests=0 
+   db-summaries=0 
+```
+Der State ist bei "2-Way" hängengeblieben und nicht zu "Full" gewechselt.
+Auslöser hierfür war die Router-ID, diese war die gleiche wie auf dem lokalen Router.
+Wir haben daraufhin die Router-ID wurde von 1.1.1.1 zu 255.1.1.1 geändert und derState wechselte daraufhin zu Full.

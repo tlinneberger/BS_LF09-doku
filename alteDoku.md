@@ -85,10 +85,6 @@ add address=10.0.13.2/24 interface=bridge2 network=10.0.13.0
 add area=Area1 network=10.0.10.0/24
 add area=Area1 network=10.0.13.0/24
 
-# Jetzt sollte alles passen
-# um das zu überprüfen einfach folgenden Command laufen lassen
-/routing ospf neighbor print
-
 # Hinzufügen der IP-Adresse für das Klassennetz
 /ip address 
 add interface=ether9 address=50.0.0.1/24
@@ -141,12 +137,12 @@ sudo route add default gw 10.0.13.1 lab2
 ```
 
 ## Probleme bei der Konfiguration
-Beim konfigurieren der Backbone-Area des Routers 1 kam es zu einem Problem mit der Verbindung zu einem anderen Router.
+Beim konfigurieren der Backbone-Area des Routers 1 gab es ein Problem mit der Verbindung zu einem anderen Router.
 ```BASH
  1 instance=default router-id=1.1.1.1 address=50.0.0.4 interface=ether9 priority=1 dr-address=50.0.0.2 
    backup-dr-address=50.0.0.4 state="2-Way" state-changes=92 ls-retransmits=0 ls-requests=0 
    db-summaries=0 
 ```
-Der State ist bei "2-Way" hängengeblieben und nicht zu "Full" gewechselt.
+Der State ist von "2-Way" nicht zu "Full" gewechselt.
 Auslöser hierfür war die Router-ID, diese war die gleiche wie auf dem lokalen Router.
-Wir haben daraufhin die Router-ID wurde von 1.1.1.1 zu 255.1.1.1 geändert und derState wechselte daraufhin zu Full.
+Wir haben daraufhin die Router-ID von 1.1.1.1 zu 255.1.1.1 geändert und der State wechselte daraufhin zu Full.

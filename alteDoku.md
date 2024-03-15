@@ -1,4 +1,4 @@
-###Abgabe der Aufgabe OSPF-Laborübung von Tisch 1 (Tim Lindeberger, Markus Hartel und Dennis Wandschura)
+# Abgabe der Aufgabe OSPF-Laborübung von Tisch 1 (Tim Linneberger, Markus Hartel und Dennis Wandschura)
 Aufgabenstellung:
 
 Es soll ein Netzwerk mit OSPF und den MikroTik-Routern eingerichtet werden.

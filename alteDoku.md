@@ -18,7 +18,7 @@ Die Router sind untereinander verbunden (siehe physischer Netzplan).
 
 
 | Router | RID | IPv4 auf ether2, ether3 und ether4 | IPv4 auf ether5, ether6, ether7 und ether8 | IPv4 auf ether9 (Zugang zum Backbone) |
-| ---- | ---- | ---- | ---- |
+| ---- | ---- | ---- | ---- | ---- |
 | 1 | 1.1.1.1 | 10.0.10.1/24 | 10.0.13.2/24 | ? |
 | 2 | 2.2.2.2 | 10.0.11.1/24 | 10.0.10.2/24 | - |
 | 3 | 3.3.3.3 | 10.0.12.1/24 | 10.0.11.2/24 | - |

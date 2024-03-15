@@ -1,25 +1,25 @@
 Die Gelben Kabel gehen zu den PCs, die Router sind untereinander verbunden (verdeutlicht mit den pinken Linien).
 
-| Router | RID | IPv4 auf ether2 und ether4 | IPv4 auf ether3 |
+| Router | RID | IPv4 auf ether2, ether3 und ether4 | IPv4 auf ether5, ether6, ether7 und ether8 |
 | ---- | ---- | ---- | ---- |
-| 0 | 10.0.0.1 | 10.0.0.1/24 | 10.0.3.2/24 |
-| 1 | 10.0.1.1 | 10.0.1.1/24 | 10.0.2.2/24 |
-| 2 | 10.0.2.1 | 10.0.2.1/24 | 10.0.1.2/24 |
-| 3 | 10.0.3.1 | 10.0.3.1/24 | 10.0.0.2/24 |
+| 1 | 1.1.1.1 | 10.0.10.1/24 | 10.0.13.2/24 |
+| 2 | 2.2.2.2 | 10.0.11.1/24 | 10.0.10.2/24 |
+| 3 | 3.3.3.3 | 10.0.12.1/24 | 10.0.11.2/24 |
+| 4 | 4.4.4.4 | 10.0.13.1/24 | 10.0.12.2/24 |
 
-| Clients (angebunden an ether4) | Router | IP auf lab2 | Defaultgateway |
+| Clients (angebunden an ether3) | Router | IP auf lab2 | Defaultgateway |
 | ---- | ---- | ---- | ---- |
-| PC01 | 0 | 10.0.0.10 | 10.0.0.1/24 |
-| PC02 | 1 | 10.0.1.10 | 10.0.1.1/24 |
-| PC03 | 2 | 10.0.2.10 | 10.0.2.1/24 |
-| PC04 | 3 | 10.0.3.10 | 10.0.3.1/24 |
+| PC01 | 1 | 10.0.10.100 | 10.0.10.1/24 |
+| PC02 | 2 | 10.0.11.100 | 10.0.11.1/24 |
+| PC03 | 3 | 10.0.12.100 | 10.0.12.1/24 |
+| PC04 | 4 | 10.0.13.100 | 10.0.13.1/24 |
 
 | Name | Netzadresse | Subnetzmaske |
 | ---- | ---- | ---- |
-| Netz0 | 10.0.0.0 | /24 |
-| Netz1 | 10.0.1.0 | /24 |
-| Netz2 | 10.0.2.0 | /24 |
-| Netz3 | 10.0.3.0 | /24 |
+| Netz0 | 10.0.10.0 | /24 |
+| Netz1 | 10.0.11.0 | /24 |
+| Netz2 | 10.0.12.0 | /24 |
+| Netz3 | 10.0.13.0 | /24 |
 
 
 ```BASH
@@ -40,30 +40,29 @@ telnet 192.168.65.38
 # wieder mit "schueler" und keinem PWD anmelden
 
 
-# config für Router0
-/ip address
-add address=10.0.0.1/24 interface=ether2 network=10.0.0.0
-add address=10.0.3.2/24 interface=ether3 network=10.0.3.0
+# config für Router1
 
-# bridge erstellen
 /interface bridge
-add name=br1
-add name=br2
-# bridges hinzufügen
-/interface bridge port
-add bridge=br1 interface=ether2
-add bridge=br1 interface=ether3
-add bridge=br2 interface=ether4
-add bridge=br2 interface=ether5
-
-# OSPF RouterID Config
+add name=bridge1
+add name=bridge2
+/routing ospf area
+add area-id=1.1.1.1 name=Area1
 /routing ospf instance
-set [ find default=yes ] router-id=10.0.0.1
-
-# OSPF auf angeschlossenen Netzwerken aktivieren
+set [ find default=yes ] router-id=1.1.1.1
+/interface bridge port
+add bridge=bridge1 interface=ether2
+add bridge=bridge1 interface=ether3
+add bridge=bridge1 interface=ether4
+add bridge=bridge2 interface=ether5
+add bridge=bridge2 interface=ether6
+add bridge=bridge2 interface=ether7
+add bridge=bridge2 interface=ether8
+/ip address
+add address=10.0.10.1/24 interface=bridge1 network=10.0.10.0
+add address=10.0.13.2/24 interface=bridge2 network=10.0.13.0
 /routing ospf network
-add area=backbone network=10.0.0.0/24
-add area=backbone network=10.0.3.0/24
+add area=Area1 network=10.0.10.0/24
+add area=Area1 network=10.0.13.0/24
 
 # Jetzt sollte alles passen
 # um das zu überprüfen einfach folgenden Command laufen lassen

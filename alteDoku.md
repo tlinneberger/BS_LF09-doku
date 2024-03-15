@@ -85,6 +85,7 @@ add address=10.0.13.2/24 interface=bridge2 network=10.0.13.0
 add area=Area1 network=10.0.10.0/24
 add area=Area1 network=10.0.13.0/24
 
+# Aufgabe 3
 # Hinzufügen der IP-Adresse für das Klassennetz
 /ip address 
 add interface=ether9 address=50.0.0.1/24

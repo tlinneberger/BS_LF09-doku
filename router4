@@ -9,7 +9,6 @@ set [ find default=yes ] router-id=4.4.4.4
 add bridge=bridge1 interface=ether2
 add bridge=bridge1 interface=ether3
 add bridge=bridge1 interface=ether4
-
 add bridge=bridge2 interface=ether5
 add bridge=bridge2 interface=ether6
 add bridge=bridge2 interface=ether7

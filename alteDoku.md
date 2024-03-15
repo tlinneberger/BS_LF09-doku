@@ -1,14 +1,14 @@
 # Abgabe der Aufgabe OSPF-Laborübung von Tisch 1 (Tim Linneberger, Markus Hartel und Dennis Wandschura)
-*Aufgabenstellung:*
+**Aufgabenstellung:**
 
 Es soll ein Netzwerk mit OSPF und den MikroTik-Routern eingerichtet werden.
 Dazu sollen vier Router und vier Clients zu einem Netzwerk zusammengeschlossen werden.
 Diese Teilaufgabe soll in vierergruppen erledigt werden.
 Anschließend sollen die in Gruppenarbeit erstellten Netzwerke zu einem Klassennetz über eine Backbone-Area zusammengeschaltet werden.
 
-*Der logische Netzplan:*
+**Der logische Netzplan:**
 
-*Der physische Netzplan:*
+**Der physische Netzplan:**
 
 
 
